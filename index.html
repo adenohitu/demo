@@ -5,12 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="index.css" type="text/css" />
+    <style></style>
   </head>
   <body>
     <div class="progress">
       <svg viewBox="0 0 100 100">
         <circle cx="50" cy="50" r="40"></circle>
       </svg>
+      <ul id="yearList"></ul>
     </div>
+
+    <script>
+      // 初期設定
+      const yearList = document.getElementById("yearList");
+      const maxYear = 2025;
+      const minYear = 1900;
+      const yearSpan = maxYear - minYear;
+      const scrollHeight = document.body.scrollHeight - window.innerHeight;
+
+      // 1900年から2025年までの年をリストに追加
+      function updateYearList(currentYear) {
+        yearList.innerHTML = ""; // リストをリセット
+        const startYear = Math.max(minYear, currentYear - 5); // 現在の年から5年前まで
+        const endYear = Math.min(maxYear, currentYear + 5); // 現在の年から5年後まで
+
+        for (let year = startYear; year <= endYear; year++) {
+          const li = document.createElement("li");
+          li.textContent = `${year}年`;
+          yearList.appendChild(li);
+        }
+      }
+
+      // スクロール量に基づいて年を増やす
+      window.addEventListener("scroll", () => {
+        const scrollY = window.scrollY; // 現在のスクロール量
+        const currentYear =
+          Math.round((scrollY / scrollHeight) * yearSpan) + minYear; // 年を計算
+        document.documentElement.style.setProperty("--_increment", currentYear); // CSS変数を更新
+        updateYearList(currentYear); // リストを更新
+      });
+
+      // 初期リストの表示
+      updateYearList(minYear);
+    </script>
   </body>
 </html>
