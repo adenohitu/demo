@@ -1,70 +1,70 @@
 body {
-    height: 3000px; /* スクロールのために大きな高さを設定 */
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  height: 3000px; /* スクロールのために大きな高さを設定 */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.progress {
+  --_size: 12rem;
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-areas: "stack";
+  place-items: center;
+  inline-size: var(--_size);
+  aspect-ratio: 1;
+  margin: auto;
+  counter-set: increment-counter var(--_increment);
+  font-variant-numeric: tabular-nums;
+
+  &::after,
+  & > * {
+    grid-area: stack;
   }
 
-  .progress {
-    --_size: 12rem;
-    position: fixed;
-    inset: 0;
-    display: grid;
-    grid-template-areas: "stack";
-    place-items: center;
-    inline-size: var(--_size);
-    aspect-ratio: 1;
-    margin: auto;
-    counter-set: increment-counter var(--_increment);
-    font-variant-numeric: tabular-nums;
-
-    &::after,
-    & > * {
-      grid-area: stack;
-    }
-
-    &::after {
-      content: counter(increment-counter) "年"; /* 年を表示 */
-      font-size: 1.5em;
-    }
-
-    & svg {
-      --_diameter: 80; /* Diameter */
-      --_circumference: calc(var(--_diameter) * 3.14); /* Circumference */
-      --_dashoffset: calc(
-        var(--_circumference) - ((var(--_increment) - 1900) / 125) *
-          var(--_circumference)
-      );
-
-      inline-size: 100%;
-      block-size: 100%;
-      fill: none;
-      stroke: currentColor;
-      stroke-dasharray: var(--_circumference);
-      stroke-dashoffset: var(--_dashoffset);
-      stroke-width: 5;
-      rotate: -90deg;
-    }
+  &::after {
+    content: counter(increment-counter) "年"; /* 年を表示 */
+    font-size: 1.5em;
   }
 
-  /* Define a CSS variable to handle the year count */
-  @property --_increment {
-    syntax: "<integer>";
-    inherits: true;
-    initial-value: 1900; /* Start at 1900 */
-  }
+  & svg {
+    --_diameter: 80; /* Diameter */
+    --_circumference: calc(var(--_diameter) * 3.14); /* Circumference */
+    --_dashoffset: calc(
+      var(--_circumference) - ((var(--_increment) - 1900) / 125) *
+        var(--_circumference)
+    );
 
-  body {
-    block-size: 500dvb;
+    inline-size: 100%;
+    block-size: 100%;
+    fill: none;
+    stroke: currentColor;
+    stroke-dasharray: var(--_circumference);
+    stroke-dashoffset: var(--_dashoffset);
+    stroke-width: 5;
+    rotate: -90deg;
   }
+}
 
-  #yearList {
-    position: absolute;
-    top: 10%;
-    left: -50%;
-    font-size: 1.2em;
-  }
+/* Define a CSS variable to handle the year count */
+@property --_increment {
+  syntax: "<integer>";
+  inherits: true;
+  initial-value: 1900; /* Start at 1900 */
+}
 
-  li {
-    list-style-type: none; /* リストのスタイルを消去 */
-  }
+body {
+  block-size: 500dvb;
+}
+
+#yearList {
+  position: absolute;
+  top: 10%;
+  left: -50%;
+  font-size: 1.2em;
+}
+
+li {
+  list-style-type: none; /* リストのスタイルを消去 */
+}
