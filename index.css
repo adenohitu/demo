@@ -1,0 +1,59 @@
+.progress {
+    --_size: 12rem;
+    position: fixed;
+    inset: 0;
+    display: block grid;
+    grid-template-areas: "stack";
+    place-items: center;
+    inline-size: var(--_size);
+    aspect-ratio: 1;
+    margin: auto;
+    counter-set: increment-counter var(--_increment);
+    font-variant-numeric: tabular-nums;
+    animation: increment-counter linear;
+    animation-timeline: scroll(root);
+
+    &::after,
+    & > * {
+      grid-area: stack;
+    }
+
+    &::after {
+      content: counter(increment-counter) "年"; /* Added "年" to show it's a year */
+      font-size: 1.5em;
+    }
+
+    & svg {
+        --_diameter: 80; /* Diameter */
+        --_circumference: calc(var(--_diameter) * 3.14); /* Circumference */
+        --_dashoffset: calc(
+            var(--_circumference) - ((var(--_increment) - 1900) / 125) * var(--_circumference)
+        );
+
+        inline-size: 100%;
+        block-size: 100%;
+        fill: none;
+        stroke: currentColor;
+        stroke-dasharray: var(--_circumference);
+        stroke-dashoffset: var(--_dashoffset);
+        stroke-width: 5;
+        rotate: -90deg;
+    }
+}
+
+/* Define a CSS variable to handle the year count */
+@property --_increment {
+    syntax: "<integer>";
+    inherits: true;
+    initial-value: 1900; /* Start at 1900 */
+}
+
+@keyframes increment-counter {
+    to {
+        --_increment: 2025; /* End at 2025 */
+    }
+}
+
+body {
+    block-size: 500dvb;
+}
